@@ -3,9 +3,15 @@ import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router';
 
+// UI components
+import Header from '../../components/UI/header/header';
+import Navbar from '../../components/UI/navbar/navbar';
+import TimesheetTable from '../../components/UI/timesheet/table/timesheetTable';
+
 import './index.css'
+
 const HomeScreen = () => {
-    const navigate = useNavigate();
+    const navigate: any = useNavigate();
 
     const { auth, setAuth }: any = useAuth();
 
@@ -35,33 +41,54 @@ const HomeScreen = () => {
         }
 
         submit();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (summary.length === 0) return <h1>Loarding... or No Data to Display</h1>
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th >TimesheetLineID</th>
-                    <th>Comment</th>
-                    <th>EmployeeName</th>
-                    <th>JobCode</th>
-                    <th>EmployeeID</th>
+        <div>
+            {/* App Header */}
+            <Header />
+            <Navbar />
 
-                </tr>
-            </thead>
-            <tbody>
-                {summary.map((item: any) => (
-                    <tr key={item.TimesheetLineID} >
-                        <td >{item.TimesheetLineID}</td>
-                        <td >{item.Comment}</td>
-                        <td >{item.Employee.EmployeeName}</td>
-                        <td >{item.Job.JobCode}</td>
-                        <td >{item.Employee.EmployeeID}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+
+            {/* <div className="relative inline-block text-center">
+
+                <select
+                    id="dropdown"
+                    className="block appearance-none bg-white px-4 py-2 rounded  leading-tight focus:outline-none focus:shadow-outline text-center"
+                >
+                    <option disabled selected hidden>Select an option</option>
+                    <option className="option-style">Email Notification</option>
+                    <option className="option-style">Management</option>
+                </select>
+            </div> */}
+
+            <div className='flex justify-between items-center p-5'>
+                <div>
+                    <p className='text-xl font-bold text-[#C1D82F]'>Timesheets for: Shereen Fathima</p>
+                </div>
+                <div className='flex items-center'>
+                    {/* <div className=''> */}
+                    <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645]'>Print Disbursements</p>
+                    {/* </div> */}
+                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
+                    <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Print Timesheet</p>
+                    {/* </div> */}
+                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
+                    <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Commit/uncommit Timesheets</p>
+                    {/* </div> */}
+                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
+                    <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Add New Timesheet</p>
+                    {/* </div> */}
+
+                </div>
+            </div>
+
+            {/* Table */}
+            <TimesheetTable summary={summary} />
+        </div>
+
     );
 }
 

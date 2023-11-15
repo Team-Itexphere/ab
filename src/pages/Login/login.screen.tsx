@@ -8,13 +8,14 @@ const LoginScreen = () => {
 
 
     const { setAuth }: any = useAuth();
+    const [loading, setLoading] = useState(false);
     const [formData, setformData] = useState({
         email: '',
         password: ''
     })
 
     const submit = () => {
-
+        setLoading(true)
         const apiUrl = 'https://cors-anywhere.herokuapp.com/https://abtraconlinesandboxapi.azurewebsites.net/token';
         const username = 'Shereen.fathima@Abtrac.com'; // Replace with your username
         const password = 'Shereen123$'; // Replace with your password
@@ -32,6 +33,7 @@ const LoginScreen = () => {
 
         axios.post(apiUrl, data, { headers })
             .then((response: any) => {
+                setLoading(false)
                 // Handle the response here
                 console.log('Response:', response.data);
                 const accessToken = response.data.access_token;
@@ -40,6 +42,7 @@ const LoginScreen = () => {
                 navigate('/');
             })
             .catch(error => {
+                setLoading(false)
                 // Handle errors here
                 console.error('Error:', error);
             });
@@ -117,6 +120,7 @@ const LoginScreen = () => {
                         <div className='flex items-center mb-5'>
                             <input
                                 type="checkbox"
+                                className="accent-[#C5D939]"
                             />
 
                             <p className='ml-2'>Stay logged in for next 12 hours</p>
@@ -124,7 +128,7 @@ const LoginScreen = () => {
 
                         <button className='w-full bg-[#cad400] py-2 rounded-xl text-xl text-[#053645] font-semibold mb-4'
                             onClick={() => submit()}
-                        >LOGIN</button>
+                        >{loading ? 'loarding' : 'LOGIN'}</button>
                         <p className=' underline'>Forgotten your password?</p>
                     </div>
 
