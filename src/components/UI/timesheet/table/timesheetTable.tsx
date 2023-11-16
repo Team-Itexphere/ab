@@ -1,18 +1,22 @@
 import React from 'react'
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+
+import FontAwesomeIconComp from '../../../common/FontAwesomeIcon/fontAwesomeIcon';
 
 type Props = {
     summary: any
+    setOpenDrawer: any
 }
 
-const TimesheetTable = ({ summary }: Props) => {
+const TimesheetTable = ({ summary, setOpenDrawer }: Props) => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return (
         <div>
-
             <table>
                 <thead>
                     <tr>
@@ -33,13 +37,23 @@ const TimesheetTable = ({ summary }: Props) => {
                             <td >{item.Job.JobCode}</td>
                             <td >{item.Employee.EmployeeID}</td>
                             <td >
-                                <div onClick={() => navigate(`/Disbursement/EmployeeDisbursementsGrid?timesheetID=${item.TimesheetLineID}`)} className='flex justify-center items-center'>
+
+                                <Button type="primary" onClick={() =>
+                                    setOpenDrawer(true)
+                                    // navigate(`/Disbursement/EmployeeDisbursementsGrid?timesheetID=${item.TimesheetLineID}`)
+                                } icon={<FontAwesomeIconComp icon={faDollarSign} className='h-4 w-4 text-gray-700' />}>
+
+                                </Button>
+                                {/* <div onClick={() =>
+                                    setOpenDrawer(true)
+                                    // navigate(`/Disbursement/EmployeeDisbursementsGrid?timesheetID=${item.TimesheetLineID}`)
+                                } className='flex justify-center items-center'>
                                     <img
                                         src="https://www.svgrepo.com/download/106835/refund.svg"
                                         alt="disb"
                                         className='w-5 h-5'
                                     />
-                                </div>
+                                </div> */}
                             </td>
                         </tr>
                     ))}

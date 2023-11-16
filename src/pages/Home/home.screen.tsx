@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router';
 import Header from '../../components/UI/header/header';
 import Navbar from '../../components/UI/navbar/navbar';
 import TimesheetTable from '../../components/UI/timesheet/table/timesheetTable';
+import DisbursementScreen from '../Disbursement/disbursement.screen';
+import DrawerComponent from '../../components/common/Drawer/drawerComponent';
 
 import './index.css'
 
@@ -16,6 +18,7 @@ const HomeScreen = () => {
     const { auth, setAuth }: any = useAuth();
 
     const [summary, setSummary] = useState([])
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     useEffect(() => {
         const submit = () => {
@@ -44,6 +47,10 @@ const HomeScreen = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const onCloseDrawer = () => {
+        setOpenDrawer(false);
+    }
+
     if (summary.length === 0) return <h1>Loarding... or No Data to Display</h1>
     return (
         <div>
@@ -69,24 +76,22 @@ const HomeScreen = () => {
                     <p className='text-xl font-bold text-[#C1D82F]'>Timesheets for: Shereen Fathima</p>
                 </div>
                 <div className='flex items-center'>
-                    {/* <div className=''> */}
                     <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645]'>Print Disbursements</p>
-                    {/* </div> */}
-                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
                     <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Print Timesheet</p>
-                    {/* </div> */}
-                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
                     <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Commit/uncommit Timesheets</p>
-                    {/* </div> */}
-                    {/* <div className='px-3 border-2 border-[#C1D82F]'> */}
                     <p className='text-xs font-semibold py-1 rounded-lg px-2 border-2 border-[#C1D82F] text-[#053645] ml-1'>Add New Timesheet</p>
-                    {/* </div> */}
-
                 </div>
             </div>
 
             {/* Table */}
-            <TimesheetTable summary={summary} />
+            <TimesheetTable summary={summary} setOpenDrawer={setOpenDrawer} />
+
+            {/* Drawer for timesheet */}
+            <DrawerComponent
+                open={openDrawer}
+                onClose={onCloseDrawer}
+                content={<DisbursementScreen />}
+            />
         </div>
 
     );

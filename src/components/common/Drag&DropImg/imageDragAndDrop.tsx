@@ -107,9 +107,9 @@ function ImageDragAndDrop() {
 
                 </div>
 
-                <button type='button'>
+                {/* <button type='button'>
                     upload
-                </button>
+                </button> */}
             </div>
         </div>
     )
