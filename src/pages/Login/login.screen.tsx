@@ -10,8 +10,8 @@ const LoginScreen = () => {
     const { setAuth }: any = useAuth();
     const [loading, setLoading] = useState(false);
     const [formData, setformData] = useState({
-        email: '',
-        password: ''
+        email: 'Shereen.fathima@Abtrac.com',
+        password: 'Shereen123$'
     })
 
     const submit = () => {

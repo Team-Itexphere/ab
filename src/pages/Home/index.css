@@ -3,9 +3,13 @@ table {
     width: 100%;
 }
 
-th,
+th {
+    text-align: center;
+    padding: 8px;
+}
+
 td {
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
 
