@@ -5,9 +5,10 @@ type DrawerProps = {
     open: boolean;
     onClose: () => void;
     content: React.ReactNode;
+    onSubmit: () => void;
 };
 
-const DrawerComponent: React.FC<DrawerProps> = ({ open, onClose, content }) => {
+const DrawerComponent: React.FC<DrawerProps> = ({ open, onClose, content, onSubmit }) => {
     return (
         <Drawer
             title="Dynamic Content Drawer"
@@ -23,7 +24,7 @@ const DrawerComponent: React.FC<DrawerProps> = ({ open, onClose, content }) => {
             extra={
                 <Space>
                     <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onClose} type="link">
+                    <Button onClick={onSubmit} type="link">
                         Submit
                     </Button>
                 </Space>
