@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-function ImageDragAndDrop() {
+function ImageDragAndDrop({ base64Image, setBase64Image }: any) {
     const [images, setImages]: any = useState([])
     const [isDragging, setIsDragging]: any = useState(false);
 
@@ -21,7 +21,23 @@ function ImageDragAndDrop() {
 
             if (files[i].type.split('/')[0] !== 'image') continue;
 
-            if (!images.some((e: any) => e.name === files[i].name)) {
+            if (!images.some((e: any) => e.name === files[i].name) && images.length < 1) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onloadend = () => {
+                        // When the reader is done reading the file, the result will be a data URL
+                        if (typeof reader.result === 'string') {
+                            setBase64Image(reader.result);
+                        }
+                    };
+
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                }
+
                 setImages((prevImages: any): any => [
                     ...prevImages,
                     {
@@ -60,7 +76,24 @@ function ImageDragAndDrop() {
 
             if (files[i].type.split('/')[0] !== 'image') continue;
 
-            if (!images.some((e: any) => e.name === files[i].name)) {
+            if (!images.some((e: any) => e.name === files[i].name) && images.length < 1) {
+
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onloadend = () => {
+                        // When the reader is done reading the file, the result will be a data URL
+                        if (typeof reader.result === 'string') {
+                            setBase64Image(reader.result);
+                        }
+                    };
+
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                }
+
                 setImages((prevImages: any): any => [
                     ...prevImages,
                     {
