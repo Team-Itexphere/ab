@@ -9,9 +9,10 @@ import FontAwesomeIconComp from '../../../common/FontAwesomeIcon/fontAwesomeIcon
 type Props = {
     summary: any
     setOpenDrawer: any
+    setDisbForTimesheetLineId: any
 }
 
-const TimesheetTable = ({ summary, setOpenDrawer }: Props) => {
+const TimesheetTable = ({ summary, setOpenDrawer, setDisbForTimesheetLineId }: Props) => {
 
     // const navigate = useNavigate();
 
@@ -38,9 +39,12 @@ const TimesheetTable = ({ summary, setOpenDrawer }: Props) => {
                             <td >{item.Employee.EmployeeID}</td>
                             <td >
 
-                                <Button type="primary" onClick={() =>
+                                <Button type="primary" onClick={() => {
                                     setOpenDrawer(true)
+                                    setDisbForTimesheetLineId(item.TimesheetLineID)
                                     // navigate(`/Disbursement/EmployeeDisbursementsGrid?timesheetID=${item.TimesheetLineID}`)
+                                }
+
                                 } icon={<FontAwesomeIconComp icon={faDollarSign} className='h-4 w-4 text-gray-700' />}>
 
                                 </Button>

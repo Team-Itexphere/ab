@@ -12,6 +12,10 @@ import DrawerComponent from '../../components/common/Drawer/drawerComponent';
 
 import './index.css'
 
+import type { DatePickerProps } from 'antd';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
+
 const HomeScreen = () => {
     const navigate: any = useNavigate();
 
@@ -19,17 +23,20 @@ const HomeScreen = () => {
 
     const [summary, setSummary] = useState([])
     const [openDrawer, setOpenDrawer] = useState(false);
-
+    const [selectedDate, setSelectedDate] = useState(dayjs());
+    const dateFormat = 'YYYY/MM/DD';
     useEffect(() => {
         const submit = () => {
 
             const apiUrl = `https://cors-anywhere.herokuapp.com/https://abtraconlinesandboxapi.azurewebsites.net/api/Timesheet/GetTimesheetLinesByEmployee?employeeid=8734&filter=Date[e]'27-September-2023'`;
+            const apiUrl1 = `https://cors-anywhere.herokuapp.com/https://abtraconlinesandboxapi.azurewebsites.net/api/Timesheet/GetTimesheetLinesByEmployee?employeeid=8734&filter=Date[e]'${formatDate(selectedDate)}'`;
 
+            console.log('apiUrl1', apiUrl1)
             const headers = {
                 Authorization: `Bearer ${auth?.accessToken}`,
             };
 
-            axios.get(apiUrl, { headers })
+            axios.get(apiUrl1, { headers })
                 .then(response => {
                     // Handle the response here
                     console.log('Response GetTimesheetLinesByEmployee ::', response.data);
@@ -362,7 +369,7 @@ const HomeScreen = () => {
         //     }
         // ]
         // setSummary(TimesheetLineSummary)
-    }, [])
+    }, [selectedDate])
 
     const onCloseDrawer = () => {
         setOpenDrawer(false);
@@ -374,6 +381,8 @@ const HomeScreen = () => {
     const [comment, setComment] = useState('')
 
     const [base64Image, setBase64Image] = useState('')
+
+    const [disbForTimesheetLineId, setDisbForTimesheetLineId] = useState(0);
 
     const onSubmit = () => {
 
@@ -396,7 +405,7 @@ const HomeScreen = () => {
             },
             "RelatedTimesheetLine":
             {
-                "TimesheetLineID": 72369418
+                "TimesheetLineID": disbForTimesheetLineId
             },
             "LogInfo":
             {
@@ -405,7 +414,7 @@ const HomeScreen = () => {
             "DisbursementImage": {
                 DisbursementImage: base64Image,
                 TimesheetLineID: 0,
-                DateSaved: "2023-09-27T00:00:00",
+                DateSaved: formatDateTime(selectedDate).toString()
             },
         }
 
@@ -425,8 +434,11 @@ const HomeScreen = () => {
         })
             .then(response => {
                 // Handle the response here
+                setDisbForTimesheetLineId(0)
                 console.log('Response Disbursement ::', response.data);
                 alert("Disbursement create successfully")
+
+
             })
             .catch(error => {
                 // Handle errors here
@@ -442,8 +454,30 @@ const HomeScreen = () => {
         console.log(comment)
         console.log(base64Image)
     }
+    
+
+    // const today = new Date();
+    const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+        console.log(date, dateString);
+
+        const tt = dateString.split("/")
+
+        setSelectedDate(date || dayjs());
+        console.log(`${tt[2]}-${tt[1]}-${tt[0]}`)
+
+        console.log('fffffffffffff', formatDate(selectedDate))
+    };
 
 
+    // Function to format the date to '27-September-2023' format
+    function formatDate(date: any) {
+        return dayjs(date).format('DD-MMMM-YYYY');
+    }
+
+    // Function to format the date to '2023-09-27T00:00:00' format
+    function formatDateTime(date: any) {
+        return dayjs(date).format('YYYY-MM-DDTHH:mm:ss');
+    }
 
     if (summary.length === 0) return <h1>Loarding... or No Data to Display</h1>
     return (
@@ -466,6 +500,8 @@ const HomeScreen = () => {
             </div> */}
 
             <div className='flex justify-between items-center p-5'>
+
+                <DatePicker defaultValue={selectedDate} format={dateFormat} onChange={onChange} />
                 <div>
                     <p className='text-xl font-bold text-[#C1D82F]'>Timesheets for: Shereen Fathima</p>
                 </div>
@@ -478,7 +514,7 @@ const HomeScreen = () => {
             </div>
 
             {/* Table */}
-            <TimesheetTable summary={summary} setOpenDrawer={setOpenDrawer} />
+            <TimesheetTable summary={summary} setOpenDrawer={setOpenDrawer} setDisbForTimesheetLineId={setDisbForTimesheetLineId} />
 
             {/* Drawer for timesheet */}
             <DrawerComponent
