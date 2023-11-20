@@ -71,15 +71,19 @@ function ImageDragAndDrop({ base64Image, setBase64Image }: any) {
         event.preventDefault()
         setIsDragging(false);
         const files = event.dataTransfer.files;
+        
 
         for (let i = 0; i < files.length; i++) {
 
             if (files[i].type.split('/')[0] !== 'image') continue;
 
+          
+
             if (!images.some((e: any) => e.name === files[i].name) && images.length < 1) {
+   
+                const file = event.dataTransfer.files[0];
 
-                const file = event.target.files[0];
-
+               
                 if (file) {
                     const reader = new FileReader();
 
