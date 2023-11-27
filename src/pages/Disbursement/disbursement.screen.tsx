@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // import Header from '../../components/UI/header/header'
 // import Navbar from '../../components/UI/navbar/navbar'
 
@@ -9,7 +10,7 @@ import ImageDragAndDrop from '../../components/common/Drag&DropImg/imageDragAndD
 import InputBoxCombo from '../../components/UI/InputCombo/inputCombo.comp'
 import GenericInput from '../../components/common/GenericInput/genericInput'
 import useAuth from '../../hooks/useAuth'
-import { useNavigate } from 'react-router-dom';
+import disbursementTypeData from '../../data/disbursementType.json'
 
 
 function DisbursementScreen({ selectedDisbTypes,
@@ -43,27 +44,27 @@ function DisbursementScreen({ selectedDisbTypes,
                     console.log('Response GetDisbursementType ::', response.data);
 
                     const originalArray = response.data
-                    const transformedArray = originalArray.map((item: any, index: any): any => {
-                        return {
-                            label: item?.DisbursementName,
-                            DisbursementTypeID: item.DisbursementTypeID,
-                            DisbursementName: item.DisbursementName,
-                            key: index.toString(),
-                        }
-                    }).flatMap((item: any, index: any, array: any) => {
-                        // Check if it's not the last item in the array
-                        if (index < array.length - 1) {
-                            return [
-                                item,
-                                {
-                                    type: 'divider',
-                                },
-                            ];
-                        } else {
-                            // Return the item if it's the last one to avoid adding a divider after it
-                            return [item];
-                        }
-                    });
+                    // const transformedArray = originalArray.map((item: any, index: any): any => {
+                    //     return {
+                    //         label: item?.DisbursementName,
+                    //         DisbursementTypeID: item.DisbursementTypeID,
+                    //         DisbursementName: item.DisbursementName,
+                    //         key: index.toString(),
+                    //     }
+                    // }).flatMap((item: any, index: any, array: any) => {
+                    //     // Check if it's not the last item in the array
+                    //     if (index < array.length - 1) {
+                    //         return [
+                    //             item,
+                    //             {
+                    //                 type: 'divider',
+                    //             },
+                    //         ];
+                    //     } else {
+                    //         // Return the item if it's the last one to avoid adding a divider after it
+                    //         return [item];
+                    //     }
+                    // });
 
                     setDisbTypes(originalArray)
 
@@ -78,246 +79,9 @@ function DisbursementScreen({ selectedDisbTypes,
         }
 
         getDisbursementType();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-
-        // const DisbursementType: any = [
-        //     {
-        //         "DisbursementTypeID": 3041,
-        //         "DisbursementName": "Lease Hire Costs",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": true,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3042,
-        //         "DisbursementName": "Other",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": true,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 4,
-        //             "DisbEmpReimbRuleDescription": "N/A"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3043,
-        //         "DisbursementName": "Parking",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": true,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": {
-        //             "DisbursementTypeGroupID": 26,
-        //             "DisbursementTypeGroupName": "Group One"
-        //         },
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3045,
-        //         "DisbursementName": "Postage",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0.88,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 1,
-        //             "DisbEmpReimbRuleDescription": "Charge"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3046,
-        //         "DisbursementName": "Printing and Photocopying",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": true,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3047,
-        //         "DisbursementName": "Stationery",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 0,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3048,
-        //         "DisbursementName": "test'z",
-        //         "DisbCurrent": false,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 4,
-        //             "DisbEmpReimbRuleDescription": "N/A"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": true
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3049,
-        //         "DisbursementName": "Travel (AKL Airport Mileage)",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 120,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 120,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 3,
-        //             "DisbEmpReimbRuleDescription": "Amount As Entered"
-        //         },
-        //         "EmpReimbAddGST": true,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3050,
-        //         "DisbursementName": "Travel (General)",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 0,
-        //         "DefRateIncludesTax": true,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3051,
-        //         "DisbursementName": "Travel (Mileage, NZ+AU 1.6-2.4L Engine)",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 0.74,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0.74,
-        //         "DisbursementTypeGroup": {
-        //             "DisbursementTypeGroupID": 27,
-        //             "DisbursementTypeGroupName": "Group Two"
-        //         },
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 2,
-        //             "DisbEmpReimbRuleDescription": "Cost"
-        //         },
-        //         "EmpReimbAddGST": true,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 3052,
-        //         "DisbursementName": "Travel Flights",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 1,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 4,
-        //             "DisbEmpReimbRuleDescription": "N/A"
-        //         },
-        //         "EmpReimbAddGST": false,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     },
-        //     {
-        //         "DisbursementTypeID": 13516,
-        //         "DisbursementName": "Comissions",
-        //         "DisbCurrent": true,
-        //         "DefaultUnitCharge": 0,
-        //         "DefRateIncludesTax": false,
-        //         "DefaultUnitCost": 0,
-        //         "DisbursementTypeGroup": null,
-        //         "EmployeeDisbursement": true,
-        //         "MYOB_Account_No": null,
-        //         "EmployeeReimbursementRule": {
-        //             "DisbEmpReimbRuleID": 1,
-        //             "DisbEmpReimbRuleDescription": "Charge"
-        //         },
-        //         "EmpReimbAddGST": true,
-        //         "AutoAdd": false,
-        //         "AccountingGLCode": null,
-        //         "CanBeScheduled": false
-        //     }
-        // ]
 
         // setDisbTypes(DisbursementType)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onSelectItem = (val: any) => {
