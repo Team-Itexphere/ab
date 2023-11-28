@@ -14,7 +14,6 @@ const LoadingComponent = () =>
 // import RequireAuth from '../utils/validation/RequireAuth';
 // import DisbursementScreen from '../pages/Disbursement/disbursement.screen';
 
-
 // project imports
 // import Loader from './Loader';
 
@@ -36,6 +35,7 @@ const MainRoutes = () => {
     const RequireAuth = Loadable(lazy(() => import('../utils/validation/RequireAuth')))
     const DisbursementScreen = Loadable(lazy(() => import('../pages/Disbursement/disbursement.screen')))
     const WorkScheduleScreen = Loadable(lazy(() => import('../pages/workSchedule/workSchedule.screen')))
+    const WorkRolePlay = Loadable(lazy(() => import('../pages/workRolePlay/workRolePlay.screen')))
 
     return (
         <Routes>
@@ -43,6 +43,7 @@ const MainRoutes = () => {
             <Route path='/' element={<Layout />}>
 
                 <Route path="work-scheduling" element={<WorkScheduleScreen />} />
+                <Route path="WorkRolePlay" element={<WorkRolePlay />} />
                 {/* public routes */}
                 <Route path="login" element={<LoginScreen />} />
 

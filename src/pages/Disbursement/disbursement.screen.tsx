@@ -10,7 +10,7 @@ import ImageDragAndDrop from '../../components/common/Drag&DropImg/imageDragAndD
 import InputBoxCombo from '../../components/UI/InputCombo/inputCombo.comp'
 import GenericInput from '../../components/common/GenericInput/genericInput'
 import useAuth from '../../hooks/useAuth'
-import disbursementTypeData from '../../data/disbursementType.json'
+// import disbursementTypeData from '../../data/disbursementType.json'
 
 
 function DisbursementScreen({ selectedDisbTypes,
