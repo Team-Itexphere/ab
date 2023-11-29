@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+
 import projectData from '../../../../data/projects.json'
 
+const TaskModal = lazy(() => import('../../../../components/UI/modals/taskModal'))
+
 const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
+
+    const projects = useSelector((state: any) => state.projects);
+
     const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
     const toggleSidebar = () => {
         setIsSideBarOpen((curr: any) => !curr);
@@ -13,7 +21,7 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
             <div
                 className={
                     isSideBarOpen
-                        ? "min-w-[261px] bg-white fixed  h-screen items-center left-0 z-20"
+                        ? "min-w-[161px] bg-white fixed  h-screen items-center left-0 z-20"
                         : "bg-[#635FC7] top-auto bottom-10 justify-center items-center hover:opacity-80 cursor-pointer  p-0 transition duration-300 transform fixed felx w-[56px] h-[48px] rounded-r-full  "
                 }
             >
@@ -21,12 +29,12 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
                     {isSideBarOpen && (
                         <div className=" bg-white   w-full   py-4 rounded-xl">
                             <h3 className=" text-gray-600 font-semibold mx-4 mb-8 ">
-                                ALL Projects ({projectData?.length})
+                                ALL Projects ({projects?.length})
                             </h3>
 
                             <div className='flex flex-col h-[70vh] justify-between'>
                                 <div>
-                                    {projectData.map((board, index) => (
+                                    {projects.map((board: any, index: any) => (
                                         <div
                                             className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7]  
                                              ${board.isActive && " bg-[#70c75f] rounded-r-full text-white mr-8 "} 
@@ -47,7 +55,7 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
                     )}
                 </div>
                 <div
-                    onClick={() => toggleSidebar()}
+                    onClick={() => setIsTaskModalOpen((prevState) => !prevState)}
                     className=" flex  items-center mt-2  absolute bottom-32  text-lg font-bold bg-red-200 rounded-r-full hover:text-[#635FC7] cursor-pointer mr-6 mb-8 px-8 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-green-900 "
                 >
                     {/* <img
@@ -79,6 +87,15 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
                     </div>
                 )}
             </div>
+            {isTaskModalOpen && (
+                <Suspense fallback={<p>Loarding ...</p>}>
+                    <TaskModal
+                        setIsAddTaskModalOpen={setIsTaskModalOpen}
+                        type="add"
+                        device="" />
+                </Suspense>
+
+            )}
         </div>
     )
 }

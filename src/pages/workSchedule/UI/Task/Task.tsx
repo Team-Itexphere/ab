@@ -1,27 +1,35 @@
 import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
 
 import workColumns from '../../../../data/workColumns.json'
 
 const Task = ({ colIndex, taskIndex }: any) => {
 
-    const col = workColumns.find((col, i) => i === colIndex)
+    const projects = useSelector((state: any) => state.projects);
 
-    const task = col?.tasks.find((col, i) => i === taskIndex)
+    const activeProject = projects.find((project: any) => project.isActive)
+    const activeColums = activeProject.columns;
+
+    const col = activeColums.find((col: any, i: any) => i === colIndex);
+    const task = col.tasks.find((col: any, i: any) => i === taskIndex)
+
+    // const col = workColumns.find((col, i) => i === colIndex)
+    // const task = col?.tasks.find((col, i) => i === taskIndex)
 
     let completed = 0;
     let subtasks = task?.subtasks
 
-    subtasks?.forEach((subtask) => {
+    subtasks?.forEach((subtask: any) => {
         if (subtask.isCompleted) {
             completed++
         }
     })
 
     const handleOnDrag = (e: any) => {
-        // e.dataTransfer.setData(
-        //   "text",
-        //   JSON.stringify({ taskIndex, prevColIndex: colIndex })
-        // );
+        e.dataTransfer.setData(
+            "text",
+            JSON.stringify({ taskIndex, prevColIndex: colIndex })
+        );
     };
 
     return (

@@ -1,10 +1,22 @@
 import React, { useState } from 'react'
+
+import { useDispatch, useSelector } from "react-redux";
+
 import workColumns from '../../../../data/workColumns.json'
 import Task from '../Task/Task';
+import projectSlice from '../../../../redux/boardSlice';
 
 const Column = ({ colIndex }: any) => {
 
-    const col: any = workColumns.find((col, i) => i === colIndex);
+    const dispatch = useDispatch();
+    const projects = useSelector((state: any) => state.projects);
+
+    const activeProject = projects.find((project: any) => project.isActive)
+    const activeColums = activeProject.columns;
+
+    const col = activeColums.find((col: any, i: any) => i === colIndex)
+
+    // const col: any = workColumns.find((col, i) => i === colIndex);
 
     const colors = [
         "bg-red-500",
@@ -28,15 +40,15 @@ const Column = ({ colIndex }: any) => {
     const randomColor = getRandomColor();
 
     const handleOnDrop = (e: any) => {
-        // const { prevColIndex, taskIndex } = JSON.parse(
-        //   e.dataTransfer.getData("text")
-        // );
+        const { prevColIndex, taskIndex } = JSON.parse(
+            e.dataTransfer.getData("text")
+        );
 
-        // if (colIndex !== prevColIndex) {
-        //   dispatch(
-        //     boardsSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
-        //   );
-        // }
+        if (colIndex !== prevColIndex) {
+            dispatch(
+                projectSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
+            );
+        }
     };
 
     const handleOnDragOver = (e: any) => {
