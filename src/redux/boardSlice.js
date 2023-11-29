@@ -6,9 +6,9 @@ const projectSlice = createSlice({
     initialState: projectData,
     reducers: {
         addTask: (state, action) => {
-            const { title, status, description, subtasks, newColIndex } =
+            const { title, noOfHours, subtasks, newColIndex } =
                 action.payload;
-            const task = { title, description, subtasks, status };
+            const task = { title, noOfHours, subtasks };
             const board = state.find((board) => board.isActive);
             const column = board.columns.find((col, index) => index === newColIndex);
             column.tasks.push(task);

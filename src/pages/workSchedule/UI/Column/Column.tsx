@@ -59,7 +59,7 @@ const Column = ({ colIndex }: any) => {
         <div
             onDrop={handleOnDrop}
             onDragOver={handleOnDragOver}
-            className="scrollbar-hide   mx-5 pt-[20px] min-w-[280px] "
+            className="scrollbar-hide flex gap-2  mx-5 pt-[20px] min-w-[280px] "
         >
             <p className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
                 {/* <div className={`rounded-full w-4 h-4 ${randomColor} `} /> */}

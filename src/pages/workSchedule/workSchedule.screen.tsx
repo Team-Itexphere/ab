@@ -44,7 +44,7 @@ const WorkScheduleScreen = () => {
             <div
                 className={
                     windowSize[0] >= 768 && isSideBarOpen
-                        ? "bg-[#f4f7fd] scrollbar-hide  flex h-full overflow-x-scroll gap-6 ml-[161px] "
+                        ? "bg-[#f4f7fd]  flex h-full overflow-x-scroll gap-6 ml-[161px] "
                         : "bg-[#f4f7fd]  scrollbar-hide  flex  h-full   overflow-x-scroll gap-6 "
                 }
             >
@@ -56,7 +56,7 @@ const WorkScheduleScreen = () => {
                 )}
 
                 {activeColums.length > 0 ? (
-                    <>
+                    <div>
                         {activeColums.map((col: any, index: any) => (
                             <Column key={index} colIndex={index} />
                         ))}
@@ -68,7 +68,7 @@ const WorkScheduleScreen = () => {
                         >
                             unassigned task
                         </div> */}
-                    </>
+                    </div>
                 ) : (
                     <>
                         {/* <EmptyBoard type="edit" /> */}

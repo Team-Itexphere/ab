@@ -10,6 +10,8 @@ const TaskModal = ({
 }: any) => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
+    const [noOfHours, setNoOfHours] = useState("");
+    const [stopTime, setStopTime] = useState("");
     const [newColIndex, setNewColIndex] = useState(prevColIndex);
 
     const onSubmit = (type: any) => {
@@ -17,9 +19,8 @@ const TaskModal = ({
             dispatch(
                 projectSlice.actions.addTask({
                     title,
-                    description: "description",
+                    noOfHours: noOfHours,
                     subtasks: [],
-                    status: "",
                     newColIndex,
                 })
             );
@@ -68,6 +69,22 @@ const TaskModal = ({
                         placeholder=" e.g Take coffee break"
                     />
                 </div>
+
+                <div className="mt-8 flex flex-col space-y-1">
+                    <label className="  text-sm  text-gray-500">
+                        No Of Hours
+                    </label>
+                    <input
+                        value={noOfHours}
+                        onChange={(e) => setNoOfHours(e.target.value)}
+                        id="task-name-input"
+                        type="number"
+                        className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-1  ring-0  "
+                        placeholder=" e.g 2"
+                    />
+                </div>
+
+
 
                 {/* current Status  */}
                 <div className="mt-8 flex flex-col space-y-3">
