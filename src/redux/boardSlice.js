@@ -21,6 +21,16 @@ const projectSlice = createSlice({
             const task = prevColData.tasks.splice(taskIndex, 1)[0];
             activeProject.columns.find((_, i) => i === colIndex).tasks.push(task)
             console.log('dragTask ::', task)
+        },
+        setProjectActive: (state, action) => {
+            state.map((project, index) => {
+                state.map((board, index) => {
+                    index === action.payload.index
+                        ? (board.isActive = true)
+                        : (board.isActive = false);
+                    return board;
+                });
+            })
         }
     }
 })

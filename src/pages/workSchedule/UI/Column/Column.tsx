@@ -5,18 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import workColumns from '../../../../data/workColumns.json'
 import Task from '../Task/Task';
 import projectSlice from '../../../../redux/boardSlice';
+import employeeSlice from '../../../../redux/employeeSlice';
 
-const Column = ({ colIndex }: any) => {
+const Column = ({ empIndex }: any) => {
 
     const dispatch = useDispatch();
     const projects = useSelector((state: any) => state.projects);
+    const employees = useSelector((state: any) => state.employees);
 
-    const activeProject = projects.find((project: any) => project.isActive)
-    const activeColums = activeProject.columns;
-
-    const col = activeColums.find((col: any, i: any) => i === colIndex)
-
-    // const col: any = workColumns.find((col, i) => i === colIndex);
+    const emp = employees.find((col: any, i: any) => i === empIndex)
 
     const colors = [
         "bg-red-500",
@@ -30,8 +27,6 @@ const Column = ({ colIndex }: any) => {
         "bg-sky-500",
     ];
 
-
-
     const getRandomColor = () => {
         const randomIndex = Math.floor(Math.random() * colors.length);
         return colors[randomIndex];
@@ -40,13 +35,18 @@ const Column = ({ colIndex }: any) => {
     const randomColor = getRandomColor();
 
     const handleOnDrop = (e: any) => {
-        const { prevColIndex, taskIndex } = JSON.parse(
+        const { prevEmpIndex, taskIndex } = JSON.parse(
             e.dataTransfer.getData("text")
         );
 
-        if (colIndex !== prevColIndex) {
+        const activeProject = projects.find((project: any) => project.isActive)
+        const newProjectName = activeProject.name;
+
+
+        console.log('newProjectName ::', newProjectName)
+        if (empIndex !== prevEmpIndex) {
             dispatch(
-                projectSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
+                employeeSlice.actions.dragTask({ empIndex, prevEmpIndex, taskIndex, newProjectName })
             );
         }
     };
@@ -59,16 +59,16 @@ const Column = ({ colIndex }: any) => {
         <div
             onDrop={handleOnDrop}
             onDragOver={handleOnDragOver}
-            className=" mx-5 flex pt-[20px]"
+            className=" mx-5 flex pt-[20px] min-h-[50px]"
         >
             <p className=" font-semibold flex  items-center min-w-[140px]  gap-2  text-[#828fa3]">
                 {/* <div className={`rounded-full w-4 h-4 ${randomColor} `} /> */}
-                {col.name} ({col.tasks.length})
+                {emp.name} ({emp.tasks.length})
             </p>
 
-            <div className='scrollbar-hide flex gap-2 '>
-                {col.tasks.map((task: any, index: any) => (
-                    <Task key={index} taskIndex={index} colIndex={colIndex} />
+            <div className='scrollbar-hide flex '>
+                {emp.tasks.map((task: any, index: any) => (
+                    <Task key={index} taskIndex={index} empIndex={empIndex} />
                 ))}
             </div>
 

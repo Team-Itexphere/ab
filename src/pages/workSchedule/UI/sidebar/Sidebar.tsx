@@ -2,13 +2,16 @@ import React, { useState, lazy, Suspense } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 
 import projectData from '../../../../data/projects.json'
+import projectSlice from '../../../../redux/boardSlice';
 
 const TaskModal = lazy(() => import('../../../../components/UI/modals/taskModal'))
 
 const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
 
+    const dispatch = useDispatch();
     const projects = useSelector((state: any) => state.projects);
 
+    console.log('projects ::', projects)
     const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
@@ -37,11 +40,12 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
                                     {projects.map((board: any, index: any) => (
                                         <div
                                             className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7]  
-                                             ${board.isActive && " bg-[#70c75f] rounded-r-full text-white mr-8 "} 
+                                             ${board.isActive && "  bg-[#70c75f] rounded-r-full text-white mr-8 "} 
                                             `}
                                             key={index}
                                             onClick={() => {
-                                                // dispatch(boardsSlice.actions.setBoardActive({ index }));
+                                                console.log('sdsdsdsd')
+                                                dispatch(projectSlice.actions.setProjectActive({ index }));
                                             }}
                                         >
                                             {/* <img src={boardIcon} className="  filter-white  h-4 " />{" "} */}
@@ -56,7 +60,7 @@ const Sidebar = ({ isSideBarOpen, setIsSideBarOpen }: any) => {
                 </div>
                 <div
                     onClick={() => setIsTaskModalOpen((prevState) => !prevState)}
-                    className=" flex  items-center mt-2  absolute bottom-32  text-lg font-bold bg-red-200 rounded-r-full hover:text-[#635FC7] cursor-pointer mr-6 mb-8 px-8 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-green-900 "
+                    className=" flex  items-center mt-2  absolute bottom-32  text-lg font-bold bg-gray-200 rounded-r-full hover:text-[#635FC7] cursor-pointer mr-6 mb-8 px-8 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-green-900 "
                 >
                     {/* <img
                             className=" min-w-[20px]"

@@ -26,8 +26,8 @@ const LoginScreen = () => {
         };
 
         const data = new URLSearchParams();
-        data.append('username', username);
-        data.append('password', password);
+        data.append('username', formData.email);
+        data.append('password', formData.password);
         data.append('grant_type', 'password');
 
 
@@ -107,11 +107,13 @@ const LoginScreen = () => {
                     <div className="flex flex-col  px-14 py-12 mt-7 border rounded-xl border-[#A6A6A6] bg-white">
                         <p className='text-center mb-10 text-3xl text-[#053645] font-semibold'>Login to Abtrac</p>
                         <input
+                            value={formData.email}
                             placeholder='Email'
                             className='w-full border py-2 px-2 rounded-lg border-[#C0C0C0] mb-4'
                             onChange={(e) => setformData({ ...formData, email: e.target.value })}
                         />
                         <input
+                            value={formData.password}
                             placeholder='Password'
                             className='w-full border  py-2 px-2 rounded-lg border-[#C0C0C0] mb-7'
                             onChange={(e) => setformData({ ...formData, password: e.target.value })}

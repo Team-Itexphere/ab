@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import projectSlice from '../../../redux/boardSlice';
+import employeeSlice from '../../../redux/employeeSlice';
 
 const TaskModal = ({
     setIsAddTaskModalOpen,
@@ -12,20 +13,20 @@ const TaskModal = ({
     const [title, setTitle] = useState("");
     const [noOfHours, setNoOfHours] = useState("");
     const [stopTime, setStopTime] = useState("");
-    const [newColIndex, setNewColIndex] = useState(prevColIndex);
+    const [newEmpIndex, setNewColIndex] = useState(prevColIndex);
 
     const onSubmit = (type: any) => {
         if (type === "add") {
             dispatch(
-                projectSlice.actions.addTask({
+                employeeSlice.actions.addTask({
+                    newEmpIndex,
                     title,
+                    projectName: "",
                     noOfHours: noOfHours,
-                    subtasks: [],
-                    newColIndex,
                 })
             );
         } else {
-
+            console.warn('warning...')
         }
     };
 

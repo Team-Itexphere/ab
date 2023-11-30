@@ -11,13 +11,15 @@ const WorkScheduleScreen = () => {
 
     const dispatch = useDispatch();
     const projects = useSelector((state: any) => state.projects);
+    const employees = useSelector((state: any) => state.employees);
 
+    console.log('employees ::', employees)
     const activeProject = projects.find((project: any) => project.isActive)
-    const activeColums = activeProject.columns;
+    // const activeColums = activeProject.columns;
 
-    console.log('projects:: ', projects)
-    console.log('activeProject :: ', activeProject)
 
+
+    console.log('activeProject', activeProject)
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
         window.innerHeight
@@ -55,10 +57,10 @@ const WorkScheduleScreen = () => {
                     />
                 )}
 
-                {activeColums.length > 0 ? (
+                {employees.length > 0 ? (
                     <div>
-                        {activeColums.map((col: any, index: any) => (
-                            <Column key={index} colIndex={index} />
+                        {employees.map((col: any, index: any) => (
+                            <Column key={index} empIndex={index} />
                         ))}
                         {/* <div
                             onClick={() => {

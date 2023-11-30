@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Root",
+        "tasks": [
+            {
+                "title": "Schedule team training session for new procedures",
+                "ProjectName": "Quiz app",
+                "noOfHours": "1"
+            }
+        ]
+    },
+    {
+        "name": "maxx",
+        "tasks": [
+            {
+                "title": "Draft outline for next month's marketing campaign",
+                "ProjectName": "Quiz app",
+                "noOfHours": "4"
+            }
+        ]
+    },
+    {
+        "name": "Kane",
+        "tasks": [
+            {
+                "title": "Call the IT department regarding software issue",
+                "ProjectName": "Quiz app",
+                "noOfHours": "3"
+            },
+            {
+                "title": "Complete research for upcoming project",
+                "ProjectName": "Dictionary app",
+                "noOfHours": "3"
+            }
+        ]
+    },
+    {
+        "name": "unassigned",
+        "tasks": [
+            {
+                "title": "Update task progress in project management tool",
+                "ProjectName": "",
+                "noOfHours": "2"
+            },
+            {
+                "title": "Confirm appointments for the week",
+                "ProjectName": "",
+                "noOfHours": "7.5"
+            }
+        ]
+    }
+]
