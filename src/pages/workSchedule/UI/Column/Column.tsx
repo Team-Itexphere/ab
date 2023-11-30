@@ -59,16 +59,19 @@ const Column = ({ colIndex }: any) => {
         <div
             onDrop={handleOnDrop}
             onDragOver={handleOnDragOver}
-            className="scrollbar-hide flex gap-2  mx-5 pt-[20px] min-w-[280px] "
+            className=" mx-5 flex pt-[20px]"
         >
-            <p className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
+            <p className=" font-semibold flex  items-center min-w-[140px]  gap-2  text-[#828fa3]">
                 {/* <div className={`rounded-full w-4 h-4 ${randomColor} `} /> */}
                 {col.name} ({col.tasks.length})
             </p>
 
-            {col.tasks.map((task: any, index: any) => (
-                <Task key={index} taskIndex={index} colIndex={colIndex} />
-            ))}
+            <div className='scrollbar-hide flex gap-2 '>
+                {col.tasks.map((task: any, index: any) => (
+                    <Task key={index} taskIndex={index} colIndex={colIndex} />
+                ))}
+            </div>
+
         </div>
     )
 }

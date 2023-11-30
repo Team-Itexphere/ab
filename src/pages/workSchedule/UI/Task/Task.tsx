@@ -13,6 +13,7 @@ const Task = ({ colIndex, taskIndex }: any) => {
     const col = activeColums.find((col: any, i: any) => i === colIndex);
     const task = col.tasks.find((col: any, i: any) => i === taskIndex)
 
+    // const isDraggable = colIndex === 3 ? true : false
     // const col = workColumns.find((col, i) => i === colIndex)
     // const task = col?.tasks.find((col, i) => i === taskIndex)
 
@@ -32,22 +33,26 @@ const Task = ({ colIndex, taskIndex }: any) => {
         );
     };
 
+    const w = 260 / 7.5 * Number(task.noOfHours);
+
+    console.log('w ::', Number(task.noOfHours))
     return (
-        <div>
-            <div
-                onClick={() => {
-                    //   setIsTaskModalOpen(true);
-                }}
-                draggable
-                onDragStart={handleOnDrag}
-                className=" w-[280px] first:my-5 rounded-lg  bg-white   shadow-[#364e7e1a] py-6 px-3 shadow-lg hover:text-[#635fc7]  cursor-pointer "
-            >
-                <p className=" font-bold tracking-wide ">{task?.title}</p>
-                <p className=" font-bold text-xs tracking-tighter mt-2 text-gray-500">
-                    {task?.noOfHours} hours
-                </p>
-            </div>
+
+        <div
+            onClick={() => {
+                //   setIsTaskModalOpen(true);
+            }}
+            draggable
+            onDragStart={handleOnDrag}
+            style={{ width: `${w}px` }}
+            className={` rounded-lg  bg-white hover:text-[#635fc7]  cursor-pointer `}
+        >
+            {/* <p className=" font-bold tracking-wide ">{task?.title}</p>
+            <p className=" font-bold text-xs tracking-tighter mt-2 text-gray-500">
+                {task?.noOfHours} h
+            </p> */}
         </div>
+
     )
 }
 
