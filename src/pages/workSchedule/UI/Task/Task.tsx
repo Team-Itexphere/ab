@@ -89,7 +89,7 @@ const Task = ({ empIndex, taskIndex }: any) => {
                 draggable
                 onDragStart={handleOnDrag}
                 style={{ width: `${width}px` }}
-                className={` rounded-md p-1 border-r-2 ${task.ProjectName === "Quiz app" ? 'bg-blue-300' : task.ProjectName === "Quiz web app" ? 'bg-teal-300' : task.ProjectName === "Dictionary app" ? 'bg-fuchsia-300' : 'bg-lime-300'}  hover:text-[#635fc7]  cursor-pointer `}
+                className={` rounded-md p-1 border-r-2 ${task.ProjectName === "V6 Mobile App" ? 'bg-blue-300' : task.ProjectName === "General" ? 'bg-orange-300' : task.ProjectName === "AbtracOnline" ? 'bg-fuchsia-300' : 'bg-lime-300'}  hover:text-[#635fc7]  cursor-pointer `}
             >
                 <p className="text-sm font-semibold truncate  ">{task?.title}</p>
                 <p className=" font-bold text-xs text-gray-500">

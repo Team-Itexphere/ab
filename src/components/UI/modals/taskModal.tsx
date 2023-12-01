@@ -22,7 +22,7 @@ const TaskModal = ({
 
 
     useEffect(() => {
-        if (type = "edit") {
+        if (type === "edit") {
 
             const empData = employees.find((emp: any, index: any) => index === prevColIndex)
             const taskData = empData.tasks.find((task: any, index: any) => index === taskIndex)

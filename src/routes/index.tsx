@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { Routes, Route, } from 'react-router-dom';
 import { Spin } from 'antd';
 import Layout from './layout';
+import WorkScheduler from '../pages/workScheduler/workScheduler.screen';
 
 
 const LoadingComponent = () =>
@@ -44,6 +45,7 @@ const MainRoutes = () => {
 
                 <Route path="work-scheduling" element={<WorkScheduleScreen />} />
                 <Route path="WorkRolePlay" element={<WorkRolePlay />} />
+                <Route path="syncfusion" element={<WorkScheduler />} />
                 {/* public routes */}
                 <Route path="login" element={<LoginScreen />} />
 

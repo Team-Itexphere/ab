@@ -4,7 +4,12 @@
         "tasks": [
             {
                 "title": "Schedule team training session for new procedures",
-                "ProjectName": "Quiz app",
+                "ProjectName": "V6 Mobile App",
+                "noOfHours": "1"
+            },
+            {
+                "title": "Call the IT department regarding software issue",
+                "ProjectName": "AbtracOnline",
                 "noOfHours": "1"
             }
         ]
@@ -14,8 +19,8 @@
         "tasks": [
             {
                 "title": "Draft outline for next month's marketing campaign",
-                "ProjectName": "Quiz app",
-                "noOfHours": "4"
+                "ProjectName": "General",
+                "noOfHours": "7"
             }
         ]
     },
@@ -24,12 +29,12 @@
         "tasks": [
             {
                 "title": "Call the IT department regarding software issue",
-                "ProjectName": "Quiz app",
+                "ProjectName": "AbtracOnline",
                 "noOfHours": "3"
             },
             {
                 "title": "Complete research for upcoming project",
-                "ProjectName": "Dictionary app",
+                "ProjectName": "V6 Mobile App",
                 "noOfHours": "3"
             }
         ]
