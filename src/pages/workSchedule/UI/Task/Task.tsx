@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState, Suspense, lazy } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 
 import workColumns from '../../../../data/workColumns.json'
 
+const TaskViewModal = lazy(() => import('../../../../components/UI/modals/taskViewModal'))
+
 const Task = ({ empIndex, taskIndex }: any) => {
+
+    const [isTaskViewModalOpen, setIsTaskViewModalOpen] = useState(false);
 
     const employees = useSelector((state: any) => state.employees);
 
@@ -77,21 +81,34 @@ const Task = ({ empIndex, taskIndex }: any) => {
     // }
 
     return (
+        <>
+            <div
+                onClick={() => {
+                    setIsTaskViewModalOpen(true);
+                }}
+                draggable
+                onDragStart={handleOnDrag}
+                style={{ width: `${width}px` }}
+                className={` rounded-md p-1 border-r-2 ${task.ProjectName === "Quiz app" ? 'bg-blue-300' : task.ProjectName === "Quiz web app" ? 'bg-teal-300' : task.ProjectName === "Dictionary app" ? 'bg-fuchsia-300' : 'bg-lime-300'}  hover:text-[#635fc7]  cursor-pointer `}
+            >
+                <p className="text-sm font-semibold truncate  ">{task?.title}</p>
+                <p className=" font-bold text-xs text-gray-500">
+                    {task?.noOfHours} h
+                </p>
+            </div>
 
-        <div
-            onClick={() => {
-                //   setIsTaskModalOpen(true);
-            }}
-            draggable
-            onDragStart={handleOnDrag}
-            style={{ width: `${width}px` }}
-            className={` rounded-md p-1 border-r-2 ${task.ProjectName === "Quiz app" ? 'bg-blue-300' : task.ProjectName === "Quiz web app" ? 'bg-teal-300' : task.ProjectName === "Dictionary app" ? 'bg-fuchsia-300' : 'bg-lime-300'}  hover:text-[#635fc7]  cursor-pointer `}
-        >
-            <p className="text-sm font-semibold truncate  ">{task?.title}</p>
-            <p className=" font-bold text-xs text-gray-500">
-                {task?.noOfHours} h
-            </p>
-        </div>
+            {isTaskViewModalOpen && (
+                <Suspense fallback={<p>Loarding ...</p>}>
+                    <TaskViewModal
+                        taskIndex={taskIndex}
+                        empIndex={empIndex}
+                        setIsTaskViewModalOpen={setIsTaskViewModalOpen}
+                    />
+                </Suspense>
+
+            )}
+        </>
+
 
     )
 }

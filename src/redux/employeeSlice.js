@@ -27,6 +27,31 @@ const employeeSlice = createSlice({
                 noOfHours: noOfHours
             }
             unassignedTaskList.tasks.push(newTaskData)
+        },
+        editTask: (state, action) => {
+            const {
+                newEmpIndex,
+                taskIndex,
+                title,
+                projectName,
+                noOfHours,
+            } = action.payload;
+
+            const empData = state.find((emp, index) => index === newEmpIndex)
+            // const taskData = empData.tasks.splice(taskIndex, 1)[0]
+            // const newtaskData = {
+            //     title: taskData.title,
+            //     ProjectName: projectName,
+            //     noOfHours: taskData.noOfHours
+            // }
+
+            // taskData.find((task, index) => index === taskIndex)
+
+            const taskData = empData.tasks.find((task, index) => index === taskIndex);
+            taskData.title = title
+            taskData.ProjectName = projectName
+            taskData.noOfHours = noOfHours
+            return
         }
     }
 })

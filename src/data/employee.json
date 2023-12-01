@@ -1,6 +1,6 @@
 [
     {
-        "name": "Root",
+        "name": "Jennifer",
         "tasks": [
             {
                 "title": "Schedule team training session for new procedures",
@@ -10,7 +10,7 @@
         ]
     },
     {
-        "name": "maxx",
+        "name": "Shereen",
         "tasks": [
             {
                 "title": "Draft outline for next month's marketing campaign",
@@ -20,7 +20,7 @@
         ]
     },
     {
-        "name": "Kane",
+        "name": "John",
         "tasks": [
             {
                 "title": "Call the IT department regarding software issue",

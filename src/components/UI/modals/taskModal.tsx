@@ -1,21 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import projectSlice from '../../../redux/boardSlice';
 import employeeSlice from '../../../redux/employeeSlice';
 
 const TaskModal = ({
     setIsAddTaskModalOpen,
+    setIsTaskViewModalOpen,
     type,
     device,
     prevColIndex = 3,
+    taskIndex
 }: any) => {
+
     const dispatch = useDispatch();
+    const employees = useSelector((state: any) => state.employees);
+
     const [title, setTitle] = useState("");
     const [noOfHours, setNoOfHours] = useState("");
-    const [stopTime, setStopTime] = useState("");
+    const [projectName, setProjectName] = useState("");
     const [newEmpIndex, setNewColIndex] = useState(prevColIndex);
 
+
+    useEffect(() => {
+        if (type = "edit") {
+
+            const empData = employees.find((emp: any, index: any) => index === prevColIndex)
+            const taskData = empData.tasks.find((task: any, index: any) => index === taskIndex)
+            setProjectName(taskData?.ProjectName)
+            setTitle(taskData.title)
+            setNoOfHours(taskData.noOfHours)
+        }
+
+    }, [])
+
     const onSubmit = (type: any) => {
+
         if (type === "add") {
             dispatch(
                 employeeSlice.actions.addTask({
@@ -26,7 +45,15 @@ const TaskModal = ({
                 })
             );
         } else {
-            console.warn('warning...')
+            dispatch(
+                employeeSlice.actions.editTask({
+                    newEmpIndex,
+                    taskIndex,
+                    title,
+                    projectName: projectName,
+                    noOfHours: noOfHours,
+                })
+            );
         }
     };
 
@@ -96,7 +123,7 @@ const TaskModal = ({
                             if (true) {
                                 onSubmit(type);
                                 setIsAddTaskModalOpen(false);
-                                // type === "edit" && setIsTaskModalOpen(false);
+                                type === "edit" && setIsTaskViewModalOpen(false);
                             }
                         }}
                         className=" w-full items-center text-white bg-[#635fc7] py-2 rounded-full "
